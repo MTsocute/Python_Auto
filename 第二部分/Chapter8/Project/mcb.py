@@ -5,6 +5,7 @@
     3.用户输入 关键字 的时候，就先去找找 shelf 没有没有这个关键字
         1. 有的话，就把 shelf 关键词下内容拷贝到剪贴板
         2. 没的话，就拉倒吧
+    4. 用户输入 delete 命令时，删除 shelf 文件关键字和对应内容
 """
 
 import shelve, pyperclip, sys
@@ -12,7 +13,6 @@ import shelve, pyperclip, sys
 # 要记得 mcbShelf 是采用和字典一样的存储模式的二进制文件
 mcbShelf = shelve.open('/Users/momo/Desktop/Python_Auto/第二部分/Chapter8/data/mcb')
 
-""" Save Clip's content into shelf """
 
 # 我们输入的命令是：python3 mcb.pyw save keyword
 # sys.arg 就会是：[mcb.pyw, save, keyword]
@@ -20,6 +20,16 @@ if len(sys.argv) == 3 and sys.argv[1].lower() == 'save':
     # 保存剪贴板内容到 mcShelf['spam'] spam 这个关键字的空间中
     mcbShelf[sys.argv[2]] = pyperclip.paste()
     print("Content of Clipboard has been saved.")
+
+elif len(sys.argv) == 3 and sys.argv[1].lower() == 'delete':
+    try:
+        del mcbShelf[sys.argv[2]]
+    # 使用 del 关键字删除指定键时，如果该键不存在，会引发 KeyError 异常
+    except KeyError:
+        print("KeyWord Not Found!!!")
+    else:
+        print(f'Successfully delete {sys.argv[2]}')
+
 elif len(sys.argv) == 2:
     # 当命令是 list 时
     if sys.argv[1].lower() == 'list':
