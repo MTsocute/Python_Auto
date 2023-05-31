@@ -11,7 +11,7 @@
 import shelve, pyperclip, sys
 
 # 要记得 mcbShelf 是采用和字典一样的存储模式的二进制文件
-mcbShelf = shelve.open('/Users/momo/Desktop/Python_Auto/第二部分/Chapter8/data/mcb')
+mcbShelf = shelve.open('/第一部分/Chapter8/data/mcb')
 
 
 # 我们输入的命令是：python3 mcb.pyw save keyword
